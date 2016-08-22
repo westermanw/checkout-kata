@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -50,8 +52,9 @@ public class ItemHashSetRepositoryTest {
         when(mockItemZ.getStockKeepingUnit()).thenReturn('z');
 
         itemHashSetRepository.storeItem(mockItemZ);
+        Optional<Item> optionalItem = itemHashSetRepository.getItemFromSku('z');
 
-        Assert.assertTrue(itemHashSetRepository.getItemFromSku('z').isPresent());
-        Assert.assertEquals(mockItemZ, itemHashSetRepository.getItemFromSku('z').get());
+        Assert.assertTrue(optionalItem.isPresent());
+        Assert.assertEquals(mockItemZ, optionalItem.get());
     }
 }

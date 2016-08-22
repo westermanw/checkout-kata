@@ -20,6 +20,14 @@ public class ItemTest {
         Assert.assertTrue(itemOne.equals(itemTwo));
     }
 
+    @Test
+    public void testNegativeEquals() throws Exception {
+        Item itemOne = new Item('a', 300);
+        Item itemTwo = new Item('v', 500);
+
+        Assert.assertFalse(itemOne.equals(itemTwo));
+    }
+
     /**
      * Make sure Items with the same SKU hash to the same value
      * @throws Exception
