@@ -16,6 +16,9 @@ public class ItemHashSetRepository implements ItemRepository{
 
     @Override
     public void storeItem(Item item) {
+        if(itemSet.contains(item)){
+            itemSet.remove(item);
+        }
         itemSet.add(item);
     }
 

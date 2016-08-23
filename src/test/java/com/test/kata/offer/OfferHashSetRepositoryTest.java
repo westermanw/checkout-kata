@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +27,19 @@ public class OfferHashSetRepositoryTest {
 
         Assert.assertTrue(optionalOffer.isPresent());
         Assert.assertEquals(mockOfferT, optionalOffer.get());
+    }
+
+    @Test
+    public void testOfferOverwritesPreviousOffer() throws Exception {
+        Offer offerA = new Offer('A', 2, 3L);
+        Offer offerATwo = new Offer('A', 2, 100L);
+
+        offerHashSetRepository.storeOffer(offerA);
+        offerHashSetRepository.storeOffer(offerATwo);
+        Optional<Offer> optionalOffer = offerHashSetRepository.getOfferFromSku('A');
+
+        Assert.assertTrue(optionalOffer.isPresent());
+        Assert.assertEquals(offerATwo, optionalOffer.get());
     }
 
 }

@@ -1,7 +1,6 @@
 package com.test.kata.offer;
 
 import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -35,6 +34,9 @@ public class OfferHashSetRepository implements OfferRepository{
 
     @Override
     public void storeOffer(Offer offer) {
+        if(offerSet.contains(offer)){
+            offerSet.remove(offer);
+        }
         offerSet.add(offer);
     }
 
