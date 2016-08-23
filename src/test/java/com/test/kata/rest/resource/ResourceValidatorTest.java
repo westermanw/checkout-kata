@@ -1,11 +1,8 @@
 package com.test.kata.rest.resource;
 
-import com.test.kata.item.Item;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -78,4 +75,42 @@ public class ResourceValidatorTest {
         Assert.assertTrue(isValidItem);
     }
 
+    @Test
+    public void testIsOfferValid() throws Exception {
+
+        OfferResource mockOfferResource = mock(OfferResource.class);
+        when(mockOfferResource.getItemStockKeepingUnit()).thenReturn('G');
+        when(mockOfferResource.getPriceInPence()).thenReturn(200L);
+        when(mockOfferResource.getNumberOfUnits()).thenReturn(2);
+
+        boolean isValidItem = resourceValidator.isOfferValid(mockOfferResource);
+
+        Assert.assertTrue(isValidItem);
+    }
+
+    @Test
+    public void testIsOfferValidFailsNotEnoughUnits() throws Exception {
+
+        OfferResource mockOfferResource = mock(OfferResource.class);
+        when(mockOfferResource.getItemStockKeepingUnit()).thenReturn('G');
+        when(mockOfferResource.getPriceInPence()).thenReturn(200L);
+        when(mockOfferResource.getNumberOfUnits()).thenReturn(1);
+
+        boolean isValidItem = resourceValidator.isOfferValid(mockOfferResource);
+
+        Assert.assertFalse(isValidItem);
+    }
+
+    @Test
+    public void testIsOfferValidFailsSkuOutOfRange() throws Exception {
+
+        OfferResource mockOfferResource = mock(OfferResource.class);
+        when(mockOfferResource.getItemStockKeepingUnit()).thenReturn('#');
+        when(mockOfferResource.getPriceInPence()).thenReturn(200L);
+        when(mockOfferResource.getNumberOfUnits()).thenReturn(5);
+
+        boolean isValidItem = resourceValidator.isOfferValid(mockOfferResource);
+
+        Assert.assertFalse(isValidItem);
+    }
 }

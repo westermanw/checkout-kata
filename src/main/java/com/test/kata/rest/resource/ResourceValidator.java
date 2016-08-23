@@ -21,12 +21,32 @@ public class ResourceValidator {
         return isValid;
     }
 
+
+    public boolean isOfferValid(OfferResource offerResource){
+
+        boolean isValid = false;
+
+        long priceInPence = offerResource.getPriceInPence();
+        int numberOfUnits = offerResource.getNumberOfUnits();
+        char sku = offerResource.getItemStockKeepingUnit();
+
+        if(isPriceValid(priceInPence) && isStockKeepingUnitCharValid(sku) && isOfferUnitsValid(numberOfUnits)){
+            isValid = true;
+        }
+
+        return isValid;
+    }
+
     private boolean isStockKeepingUnitCharValid(char sku){
         return (sku >= 65 && sku <= 90);
     }
 
     private boolean isPriceValid(long price){
         return (price >= 0);
+    }
+
+    private boolean isOfferUnitsValid(int numberOfUnits){
+        return (numberOfUnits >= 2);
     }
 
 
